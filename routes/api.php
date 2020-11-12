@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group([
     'namespace' => 'Api',
+    'middleware' => 'web',
 ], function () {
     Route::group([
         'prefix' => 'advertisements',

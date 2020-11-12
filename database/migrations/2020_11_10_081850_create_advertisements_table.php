@@ -20,7 +20,7 @@ class CreateAdvertisementsTable extends Migration
             $table->string('phone');
             $table->string('country');
             $table->string('email');
-            $table->timestamp('end_date');
+            $table->date('end_date');
             $table->unsignedBigInteger('user_id');
             $table->float('latitude', 10, 8)->nullable();
             $table->float('longitude', 10,8)->nullable();

@@ -37,7 +37,6 @@
         axios
           .get(`/advertisements/${advertisement}`)
           .then(({data}) => {
-            console.log(data);
             this.advertisement = data;
           })
       },

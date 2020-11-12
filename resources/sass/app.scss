@@ -1,8 +1,22 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "~normalize.css";
+@import "../fonts/fonts.css";
 
-// Variables
-@import 'variables';
+@import "config/mixin";
+@import "config/placeholders";
+@import "config/variables";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "base/body";
+@import "base/btn";
+@import "base/layout";
+
+@import "modules/selected";
+@import "modules/scrollBar";
+@import "modules/form";
+
+@import "layout/sidebar";
+@import "layout/products";
+@import "layout/product";
+@import "layout/previews";
+@import "layout/page";
+@import "layout/cart";
+@import "layout/login";

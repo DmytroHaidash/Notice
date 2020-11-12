@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdvertisementsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +14,16 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::group([
+    'namespace' => 'Api',
+], function () {
+    Route::group([
+        'prefix' => 'advertisements',
+    ], function () {
+       Route::get('/', [AdvertisementsController::class, 'items']);
+       Route::post('/store', [AdvertisementsController::class, 'store'])->middleware('auth');
+       Route::post('/update/{advertisement}', [AdvertisementsController::class, 'update'])->middleware('auth');
+       Route::get('/{advertisement}', [AdvertisementsController::class, 'item']);
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    });
 });

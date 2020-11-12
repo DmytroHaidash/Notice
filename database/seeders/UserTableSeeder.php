@@ -14,7 +14,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->make([
+        User::factory()->create([
             'name' => 'Адиминистратор',
             'email' => config('admin.email'),
         ]);

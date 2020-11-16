@@ -24,7 +24,7 @@
     },
     "dependencies": {
         "babel-loader": "^8.2.1",
-        "imask": "^5.1.5",
+        "imask": "^5.2.1",
         "normalize.css": "^8.0.1",
         "vue": "^2.6.12",
         "vue-perfect-scrollbar": "^0.1.0",

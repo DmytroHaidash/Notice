@@ -26,7 +26,7 @@ class AdvertisementResource extends JsonResource
             'trim_description' => $trimDescription,
             'phone' => $this->phone,
             'country' => $this->country,
-            'end_date' => $this->end_date,
+            'end_date' => $this->end_date->format('Y-m-d'),
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'email' => $this->email,

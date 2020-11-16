@@ -4,9 +4,9 @@
             Google Map
         </h1>
         <div class="form-group in-focus">
-            <label for="origin">Адресс</label>
+            <label>Адресс</label>
             <div class="form-control">
-                <gmap-autocomplete />
+                <gmap-autocomplete @place_changed="setPlace"/>
             </div>
         </div>
         <div class="search">
@@ -18,15 +18,21 @@
                 id="map"
                 :options="{disableDefaultUI:true}"
         >
+            <gmap-marker
+                    :key="index"
+                    :position="center = options.center"
+                    :clickable="true"
+                    :draggable="true"
+                    @click="center=options.center"
+            ></gmap-marker>
         </gmap-map>
     </div>
 </template>
 
 <script>
-  import { gmapApi } from 'vue2-google-maps';
+  import {gmapApi} from 'vue2-google-maps';
 
   export default {
-    name: "GoogleMap",
     data() {
       return {
         options: {
@@ -37,21 +43,35 @@
           },
           mapTypeId: 'roadmap',
         },
-        origin:'',
-        originSearchBox:'',
       };
     },
     computed: {
       google: gmapApi
     },
-    // methods: {
-    //   init: function() {
-    //     this.originSearchBox = new this.google.places.SearchBox(this.$refs.origin);
-    //     this.originSearchBox.addListener('places_changed', () => {
-    //       this.origin = this.$refs.origin.value;
-    //     });
-    //   }
-    // },
+    methods: {
+      setPlace(place) {
+        this.options.center.lat = place.geometry.viewport.Ya.i;
+        this.options.center.lng = place.geometry.viewport.Sa.i;
+        this.$emit('map', {
+          latitude: place.geometry.viewport.Ya.i,
+          longitude: place.geometry.viewport.Sa.i
+        })
+      }
+    },
+    created() {
+      if (this.$route.params.advertisement) {
+        axios
+          .get(`/advertisements/${this.$route.params.advertisement}`)
+          .then(({data}) => {
+            if (data.latitude) {
+              this.options.center.lat = data.latitude;
+            }
+            if (data.longitude) {
+              this.options.center.lng = data.longitude;
+            }
+          })
+      }
+    }
   };
 </script>
 

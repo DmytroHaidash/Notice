@@ -2,11 +2,10 @@
     <div class="content-col">
         <div class="content-body">
             <form @submit.prevent="store">
-                <div class="form-group">
+                <div class="form-group in-focus">
                     <label for="title">Заголовок</label>
                     <div class="form-control">
-                        <input type="text" id="title" v-model="title" @focus="onFocus()" @blur="onBlur()"
-                               required>
+                        <input type="text" id="title" v-model="title" required>
                     </div>
                 </div>
                 <div class="form-group in-focus">
@@ -17,29 +16,26 @@
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <div class="form-group">
+                        <div class="form-group in-focus">
                             <label for="phone">Телефон</label>
                             <div class="form-control">
-                                <input type="text" id="phone" v-model="phone" @focus="onFocus()" @blur="onBlur()"
-                                       required>
+                                <input type="tel" id="phone" v-model="phone" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
+                        <div class="form-group in-focus">
                             <label for="country">Страна</label>
                             <div class="form-control">
-                                <input type="text" id="country" v-model="country" @focus="onFocus()" @blur="onBlur()"
-                                       required>
+                                <input type="text" id="country" v-model="country" required>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="form-group">
+                        <div class="form-group in-focus">
                             <label for="email">E-mail</label>
                             <div class="form-control">
-                                <input type="email" id="email" v-model="email" @focus="onFocus()" @blur="onBlur()"
-                                       required>
+                                <input type="email" id="email" v-model="email" required>
                             </div>
                         </div>
                     </div>
@@ -54,12 +50,12 @@
                 </div>
                 <div class="form-group in-focus">
                     <label for="file">Изображение</label>
+                    <img :src="image" alt="" style="height: 200px;" v-if="image">
                     <div class="form-control">
                         <input type="file" id="file" accept="image/*" @change="handleImage">
                     </div>
                 </div>
-
-                <google-map></google-map>
+                <google-map @map="map"></google-map>
                 <button class="btn btn-primary">
                     Сохранить
                 </button>
@@ -80,7 +76,11 @@
         country: '',
         email: '',
         end_date: '',
-        image: null
+        image: null,
+        upload:null,
+        latitude: null,
+        longitude: null,
+        url: '/advertisements/store',
       }
     },
     components: {
@@ -93,20 +93,15 @@
 
           reader.onload = function (e) {
             this.image = e.target.result;
+            this.upload = e.target.result;
           }.bind(this);
 
           reader.readAsDataURL(event.target.files[0]);
         }
       },
-      onFocus() {
-        event.target.parentNode.parentNode.classList.add('in-focus');
-      },
-      onBlur() {
-        if (event.target.value !== "") {
-          event.target.parentNode.parentNode.classList.add('in-focus');
-        } else {
-          event.target.parentNode.parentNode.classList.remove('in-focus');
-        }
+      map(data) {
+        this.longitude = data.longitude;
+        this.latitude = data.latitude;
       },
       store() {
         const formData = {
@@ -116,9 +111,34 @@
           country: this.country,
           email: this.email,
           end_date: this.end_date,
-          image: this.image,
+          image: this.upload,
+          longitude: this.longitude,
+          latitude: this.latitude
         };
-        axios.post('/advertisements/store', formData);
+        axios.post(this.url, formData);
+        this.$router.push('/');
+      },
+      getData(advertisement) {
+        axios
+          .get(`/advertisements/${advertisement}`)
+          .then(({data}) => {
+            this.advertisement = data;
+            this.title = data.title;
+            this.description = data.description;
+            this.phone = data.phone;
+            this.country = data.country;
+            this.email = data.email;
+            this.end_date = data.end_date;
+            this.image = data.image;
+            this.longitude = data.longitude;
+            this.latitude = data.latitude;
+          })
+        this.url = `/advertisements/update/${advertisement}`;
+      },
+    },
+    created() {
+      if (this.$route.params.advertisement) {
+        this.getData(this.$route.params.advertisement)
       }
     }
   }

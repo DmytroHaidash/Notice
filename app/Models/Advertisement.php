@@ -21,8 +21,7 @@ class Advertisement extends Model implements HasMedia
         'user_id',
         'latitude',
         'longitude',
-        'email',
-        'map'
+        'email'
     ];
 
     protected $dates = ['end_date', 'created_at'];
@@ -35,7 +34,7 @@ class Advertisement extends Model implements HasMedia
 
     public function getImageAttribute()
     {
-        $media = '../images/noimage.png';
+        $media = '/public/images/noimage.png';
 
         if ($this->hasMedia('advertisement')) {
             $media = $this->getFirstMediaUrl('advertisement');

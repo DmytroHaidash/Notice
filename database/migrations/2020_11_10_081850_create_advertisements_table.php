@@ -24,7 +24,6 @@ class CreateAdvertisementsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->float('latitude', 10, 8)->nullable();
             $table->float('longitude', 10,8)->nullable();
-            $table->json('map')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

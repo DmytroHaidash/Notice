@@ -17,7 +17,8 @@ Vue.component('sidebar', Sidebar);
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyADRgkZvLE3XwYgRlAz3PMd6B1Erk9fAgE',
-        libraries: "places", // necessary for places input
+        //key: 'AIzaSyD0k7YhxBzQC2RxxCNmtu6WsCbY6lhcC8I',
+        libraries: "places,drawing,visualization", // necessary for places input
         region: "uk,en"
     }
 });
@@ -25,4 +26,7 @@ Vue.use(VueGoogleMaps, {
 new Vue({
     el: '#app',
     router,
+    mounted() {
+        require('./phone-mask');
+    }
 });

@@ -6,8 +6,8 @@ import Create from './pages/AdvertisementsCreate';
 const routes = [
   {path: '/', component: Advertisements, name:'home'},
   {path: '/advertisements/create', component: Create},
+  {path: '/advertisements/edit/:advertisement', component: Create},
   {path: '/advertisements/:advertisement', component:Advertisement},
-
   {path: '*', component: PageNotFound},
 ];
 

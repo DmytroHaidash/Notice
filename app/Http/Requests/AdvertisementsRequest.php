@@ -24,9 +24,9 @@ class AdvertisementsRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|require',
-            'description' => 'require',
-            'phone' => 'required|min:10',
+            'title' => 'string|required',
+            'description' => 'required',
+            'phone' => 'required',
             'country' => 'string|required',
             'email' => 'email|required',
             'end_date' => 'required|date',

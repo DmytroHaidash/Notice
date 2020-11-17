@@ -22,8 +22,8 @@ class CreateAdvertisementsTable extends Migration
             $table->string('email');
             $table->date('end_date');
             $table->unsignedBigInteger('user_id');
-            $table->float('latitude', 10, 8)->nullable();
-            $table->float('longitude', 10,8)->nullable();
+            $table->float('latitude', 11, 8)->nullable();
+            $table->float('longitude', 11,8)->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

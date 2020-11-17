@@ -15,19 +15,23 @@
 
             <p>{{advertisement.email}}</p>
 
-            <p>Add map</p>
+            <google-map v-if="advertisement.latitude && advertisement.longitude"></google-map>
         </div>
 
     </div>
 </template>
 
 <script>
+  import GoogleMap from './../components/GMap';
 
   export default {
     data() {
       return {
         advertisement: [],
       }
+    },
+    components: {
+      GoogleMap
     },
     created() {
       this.getData(this.$route.params.advertisement);

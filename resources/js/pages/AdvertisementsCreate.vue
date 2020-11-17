@@ -55,7 +55,7 @@
                         <input type="file" id="file" accept="image/*" @change="handleImage">
                     </div>
                 </div>
-                <google-map @map="map"></google-map>
+                <google-map @map="map" :autocomplete="true"></google-map>
                 <button class="btn btn-primary">
                     Сохранить
                 </button>

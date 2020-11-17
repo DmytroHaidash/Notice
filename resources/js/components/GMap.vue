@@ -3,7 +3,7 @@
         <h1>
             Google Map
         </h1>
-        <div class="form-group in-focus">
+        <div class="form-group in-focus" v-if="autocomplete">
             <label>Адресс</label>
             <div class="form-control">
                 <gmap-autocomplete @place_changed="setPlace"/>
@@ -44,6 +44,9 @@
           mapTypeId: 'roadmap',
         },
       };
+    },
+    props:{
+      autocomplete: Boolean, default(){return false}
     },
     computed: {
       google: gmapApi

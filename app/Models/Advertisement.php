@@ -34,7 +34,7 @@ class Advertisement extends Model implements HasMedia
 
     public function getImageAttribute()
     {
-        $media = '/public/images/noimage.png';
+        $media = '/images/noimage.png';
 
         if ($this->hasMedia('advertisement')) {
             $media = $this->getFirstMediaUrl('advertisement');

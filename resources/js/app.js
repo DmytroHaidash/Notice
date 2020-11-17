@@ -16,8 +16,7 @@ Vue.use(VueRouter);
 Vue.component('sidebar', Sidebar);
 Vue.use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyADRgkZvLE3XwYgRlAz3PMd6B1Erk9fAgE',
-        //key: 'AIzaSyD0k7YhxBzQC2RxxCNmtu6WsCbY6lhcC8I',
+        key: process.env.GOOGLE_MAPS_API_KEY,
         libraries: "places,drawing,visualization", // necessary for places input
         region: "uk,en"
     }

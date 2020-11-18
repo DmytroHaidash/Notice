@@ -5,6 +5,17 @@
             <h1 class="title">
                 {{advertisement.title}}
             </h1>
+            <router-link :to="{path: `/profile/${advertisement.user.id}`, params: advertisement.user.id}"
+                         v-if="$attrs.auth" style="display: flex;">
+                <img :src="advertisement.user.image" alt="" style="height: 50px;">
+                <p style="margin-left: 10px">{{advertisement.user.name}}</p>
+            </router-link>
+            <div style="display: flex;" v-else>
+                <img :src="advertisement.user.image" alt="" style="height: 50px;">
+                <p style="margin-left: 10px">{{advertisement.user.name}}</p>
+            </div>
+
+
             <p>{{advertisement.created_at}}</p>
 
             <div v-html="advertisement.description"></div>

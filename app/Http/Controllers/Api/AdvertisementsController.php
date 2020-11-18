@@ -7,6 +7,7 @@ use App\Http\Requests\AdvertisementsRequest;
 use App\Http\Resources\AdvertisementPaginatedResource;
 use App\Http\Resources\AdvertisementResource;
 use App\Models\Advertisement;
+use App\Repository\AdvertisementsRepository;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -34,14 +35,7 @@ class AdvertisementsController extends Controller
      */
     public function store(AdvertisementsRequest $request)
     {
-        $advertisement = Auth::user()->advertisements()->create(
-            $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude')
-        );
-        if($request->filled('image')){
-            $advertisement->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('advertisement');
-        }
+        AdvertisementsRepository::store($request);
         return response()->json('status', 200);
     }
 
@@ -49,22 +43,10 @@ class AdvertisementsController extends Controller
      * @param AdvertisementsRequest $request
      * @param Advertisement $advertisement
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileCannotBeAdded
-     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist
-     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig
-     * @throws \Spatie\MediaLibrary\MediaCollections\Exceptions\InvalidBase64Data
      */
     public function update(AdvertisementsRequest $request, Advertisement $advertisement)
     {
-        $advertisement->update(
-            $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude')
-        );
-        if($request->filled('image')){
-            $advertisement->clearMediaCollection('advertisement');
-            $advertisement->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('advertisement');
-        }
+        AdvertisementsRepository::update($request, $advertisement);
         return response()->json('status', 200);
     }
 }

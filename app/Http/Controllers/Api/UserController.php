@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Repository\UserRepository;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -16,13 +17,7 @@ class UserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $user->update($request->only('first_name', 'last_name', 'about', 'email', 'longitude', 'latitude'));
-
-        if($request->filled('image')){
-            $user->clearMediaCollection('avatar');
-            $user->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('avatar');
-        }
+        UserRepository::update($request, $user);
+        return response()->json('status', 200);
     }
 }

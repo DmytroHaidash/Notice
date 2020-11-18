@@ -73,6 +73,18 @@
               this.options.center.lng = data.longitude;
             }
           })
+      };
+      if(this.$route.params.user) {
+        axios
+          .get(`/profile/${this.$route.params.user}`)
+          .then(({data}) => {
+            if (data.latitude) {
+              this.options.center.lat = data.latitude;
+            }
+            if (data.longitude) {
+              this.options.center.lng = data.longitude;
+            }
+          })
       }
     }
   };

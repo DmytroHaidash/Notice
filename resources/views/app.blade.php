@@ -22,7 +22,7 @@
                     <a class="nav-link" href="{{ route('register') }}">Регистрация</a>
                 @endif
             @else
-                <p>{{ Auth::user()->name }}</p>
+                <a href="/profile/{{Auth::user()->id}}">{{ Auth::user()->name }}</a>
 
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();

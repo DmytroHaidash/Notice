@@ -8,6 +8,7 @@
                 <th scope="col">Заголовок</th>
                 <th scope="col">Дата создания</th>
                 <th scope="col">Описание</th>
+                <th scope="col">Автор</th>
                 <th></th>
             </tr>
             </thead>
@@ -24,6 +25,12 @@
                 </th>
                 <th>{{item.created_at}}</th>
                 <th>{{item.trim_description}}</th>
+                <th>
+                    <router-link :to="{path: `/profile/${item.user.id}`, params: item.user.id}" v-if="$attrs.auth">
+                        {{item.user.name}}
+                    </router-link>
+                    <p v-else>{{item.user.name}}</p>
+                </th>
                 <th>
                     <router-link :to="{path: `/advertisements/${item.id}`, params: item.id}">
                         Смотреть
@@ -50,7 +57,6 @@
 </template>
 
 <script>
-
   export default {
     data() {
       return {

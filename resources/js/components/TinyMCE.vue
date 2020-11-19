@@ -31,7 +31,13 @@
     methods: {
       change() {
         this.$emit('wysiwyg', this.output);
+      },
+      setValue(){
+        this.output = '';
       }
+    },
+    created() {
+      this.$parent.$on('send', this.setValue);
     }
   }
 </script>

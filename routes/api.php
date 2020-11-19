@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AdvertisementsController;
+use App\Http\Controllers\Api\CommentsController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,14 @@ Route::group([
 ], function () {
     Route::get('/profile/{user}', [UserController::class, 'profile']);
     Route::post('/profile/{user}',[UserController::class, 'update']);
+
+    Route::group([
+        'prefix' => 'comments',
+    ], function(){
+       Route::post('/store', [CommentsController::class, 'store'])->middleware('auth');
+       Route::post('/update/{comment}', [CommentsController::class, 'update'])->middleware('auth');
+    });
+
     Route::group([
         'prefix' => 'advertisements',
     ], function () {

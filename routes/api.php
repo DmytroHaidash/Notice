@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AdvertisementsController;
+use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\CommentsController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ Route::group([
 ], function () {
     Route::get('/profile/{user}', [UserController::class, 'profile']);
     Route::post('/profile/{user}',[UserController::class, 'update']);
+    Route::get('/categories', [CategoriesController::class, 'items']);
 
     Route::group([
         'prefix' => 'comments',

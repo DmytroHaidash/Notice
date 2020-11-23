@@ -37,7 +37,7 @@
       }
     },
     created() {
-      this.$parent.$on('send', this.setValue);
+      this.$parent.$on(('store' || 'send'), this.setValue);
     }
   }
 </script>

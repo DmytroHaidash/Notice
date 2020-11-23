@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CommentResource;
 use App\Http\Resources\CommentsPaginatedResource;
 use App\Models\Comment;
 use App\Repository\CommentsRepository;
@@ -12,18 +13,18 @@ class CommentsController extends Controller
 {
     public function store(Request $request)
     {
-        CommentsRepository::store($request);
-        return response()->json('status', 200);
+        $comment = CommentsRepository::store($request);
+        return response()->json(new CommentResource($comment));
     }
 
     public function update(Request $request, Comment $comment)
     {
-        CommentsRepository::update($request, $comment);
-        return response()->json('status', 200);
+        $comment = CommentsRepository::update($request, $comment);
+        return response()->json(new CommentResource($comment));
     }
 
     public function items()
     {
-        return response()->json(new CommentsPaginatedResource(Comment::paginate(5)));
+        return response()->json(new CommentsPaginatedResource(Comment::latest()->paginate(5)));
     }
 }

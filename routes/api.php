@@ -28,6 +28,7 @@ Route::group([
     ], function(){
        Route::post('/store', [CommentsController::class, 'store'])->middleware('auth');
        Route::post('/update/{comment}', [CommentsController::class, 'update'])->middleware('auth');
+       Route::get('/items', [CommentsController::class, 'items']);
     });
 
     Route::group([

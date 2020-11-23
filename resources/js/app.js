@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import routes from './routes';
 import Sidebar from './components/Sidebar';
 import * as VueGoogleMaps from "vue2-google-maps";
+import ScrollLoader from 'vue-scroll-loader'
 
 
 const router = new VueRouter({
@@ -13,6 +14,7 @@ const router = new VueRouter({
 });
 
 Vue.use(VueRouter);
+Vue.use(ScrollLoader);
 
 Vue.component('sidebar', Sidebar);
 Vue.use(VueGoogleMaps, {

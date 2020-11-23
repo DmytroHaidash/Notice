@@ -1,13 +1,13 @@
 <template>
     <div>
         <div style="display: flex;">
-            <img :src="comment.user.image" alt="" style="height: 50px;">
-            <p style="margin-left: 10px">{{comment.user.name}}</p>
-            <p>Опубликовано: {{comment.created_at}}</p>
+            <img :src="item.user.image" alt="" style="height: 50px;">
+            <p style="margin-left: 10px">{{item.user.name}}</p>
+            <p>Опубликовано: {{item.created_at}}</p>
             <button class="btn btn-primary" v-if="!edit && makeEdit" @click="edit = true">Редактировать</button>
         </div>
-        <comments-form :edit="comment" v-if="edit" @update="update"></comments-form>
-        <div v-html="comment.content" v-else></div>
+        <comments-form :edit="item" v-if="edit" @send="updateComment" style="margin-bottom: 50px; margin-top: 50px"></comments-form>
+        <div v-html="item.content" v-else></div>
     </div>
 </template>
 
@@ -20,6 +20,7 @@
     },
     data() {
       return {
+        item: null,
         edit: false,
       }
     },
@@ -27,22 +28,21 @@
       CommentsForm
     },
     methods: {
-      update(data) {
-        this.comment.content = data;
+      updateComment(data) {
+        this.item.content = data.content;
         this.edit = false;
-      }
-    },
-    computed: {
-      makeEdit() {
+      },
+      makeEdit: function() {
         let now = new Date();
         let updated = new Date(this.comment.updated_at);
         updated.setMinutes(updated.getMinutes() + 10);
-        if (this.comment.user.id === this.$attrs.auth.id && updated <= now) {
-          return true
-        }
-        return false;
+        console.log(this.comment.user.id === this.$attrs.auth.id);
+        return this.comment.user.id === this.$attrs.auth.id && updated <= now;
       },
     },
+    created() {
+      this.item = this.comment;
+    }
   }
 </script>
 

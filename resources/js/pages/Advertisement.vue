@@ -26,7 +26,8 @@
 
             <p>{{advertisement.email}}</p>
 
-            <!--<google-map v-if="advertisement.latitude && advertisement.longitude"></google-map>-->
+            <google-map v-if="advertisement.latitude && advertisement.longitude"></google-map>
+
             <comments style="margin-top: 50px"></comments>
         </div>
 
@@ -40,7 +41,7 @@
   export default {
     data() {
       return {
-        advertisement: [],
+        advertisement: null,
       }
     },
     components: {

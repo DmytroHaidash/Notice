@@ -21,7 +21,7 @@
   export default {
     data() {
       return {
-        content: ''
+        content: '',
       }
     },
     props: {
@@ -41,14 +41,19 @@
           advertisement_id: this.$route.params.advertisement,
         };
         if (this.edit) {
-          axios.post(`comments/update/${this.edit.id}`, formData);
-          this.$emit('update', this.content);
-          this.content = '';
+          axios.post(`comments/update/${this.edit.id}`, formData)
+            .then(({data}) => {
+              this.$emit('send', data);
+              this.content = '';
+            });
         } else {
-          axios.post('comments/store', formData);
-          this.content = '';
+          axios.post('comments/store', formData)
+            .then(({data}) => {
+              this.$emit('store', data);
+              this.content = '';
+            });
+
         }
-        this.$emit('send');
       }
     },
     created() {

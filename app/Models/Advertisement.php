@@ -31,6 +31,11 @@ class Advertisement extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function category():BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function comments():BelongsToMany
     {
         return $this->belongsToMany(Comment::class);

@@ -19,4 +19,8 @@ class Category extends Model
         return $this->hasMany(Advertisement::class);
     }
 
+    public function children():HasMany
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
 }

@@ -33,6 +33,7 @@ class AdvertisementResource extends JsonResource
             'image' => $this->image,
             'created_at' => $this->created_at->format('Y-m-d'),
             'user' => new UserResource($this->user),
+            'category' => new CategoryResource($this->category)
 
         ];
     }

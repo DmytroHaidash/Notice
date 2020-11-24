@@ -21,7 +21,8 @@ class Advertisement extends Model implements HasMedia
         'user_id',
         'latitude',
         'longitude',
-        'email'
+        'email',
+        'category_id'
     ];
 
     protected $dates = ['end_date', 'created_at'];

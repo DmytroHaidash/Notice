@@ -14,6 +14,15 @@
                         <textarea id="description" rows="5" v-model="description" required></textarea>
                     </div>
                 </div>
+                <div class="product-header-item">
+                    <div class="product-header-item__title product-header-item__title--flex">
+                        Категория:
+                        <div class="size">
+                            <selected @changeSelect="checkCategory" v-if="categories" :value="category"
+                                      :items="categories"></selected>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group in-focus">
@@ -66,6 +75,7 @@
 
 <script>
   import GoogleMap from './../components/GMap';
+  import Selected from './../components/Selected';
 
   export default {
     data() {
@@ -81,12 +91,19 @@
         latitude: null,
         longitude: null,
         url: '/advertisements/store',
+        categories: null,
+        category: null,
       }
     },
     components: {
-      GoogleMap
+      GoogleMap,
+      Selected
     },
     methods: {
+      checkCategory(category){
+        console.log(category);
+        this.category = category;
+      },
       handleImage(event) {
         if (event.target.files && event.target.files[0]) {
           const reader = new FileReader();
@@ -113,7 +130,8 @@
           end_date: this.end_date,
           image: this.upload,
           longitude: this.longitude,
-          latitude: this.latitude
+          latitude: this.latitude,
+          category_id: this.category.id
         };
         axios.post(this.url, formData);
         this.$router.push('/');
@@ -132,14 +150,30 @@
             this.image = data.image;
             this.longitude = data.longitude;
             this.latitude = data.latitude;
-          })
+            this.category = data.category;
+          });
         this.url = `/advertisements/update/${advertisement}`;
       },
+      getCategories(){
+        axios
+          .get('/categories/parents')
+          .then(({data}) => {
+            this.categories = data;
+            this.category = this.categories[0];
+          });
+      }
     },
     created() {
+      this.getCategories();
       if (this.$route.params.advertisement) {
         this.getData(this.$route.params.advertisement)
       }
     }
   }
 </script>
+<style scoped>
+    .product-header-item {
+        margin-bottom: 50px;
+        width:90%
+    }
+</style>

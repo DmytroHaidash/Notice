@@ -42,6 +42,9 @@
         }
     },
     created() {
+      if(!this.$attrs.auth){
+        this.$router.push('/');
+      }
       this.getData();
     }
   }

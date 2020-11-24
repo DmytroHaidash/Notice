@@ -5,6 +5,7 @@
             <h1 class="title">
                 {{advertisement.title}}
             </h1>
+            <p>{{advertisement.category.parent ? advertisement.category.parent.title +' -> ' : ''}} {{advertisement.category.title}}</p>
             <router-link :to="{path: `/profile/${advertisement.user.id}`}"
                          v-if="$attrs.auth" style="display: flex;">
                 <img :src="advertisement.user.image" alt="" style="height: 50px;">

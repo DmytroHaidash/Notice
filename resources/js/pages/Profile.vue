@@ -66,6 +66,9 @@
       Wysiwyg
     },
     created() {
+      if(!this.$attrs.auth){
+        this.$router.push('/');
+      }
       this.getData(this.$route.params.user);
     },
     methods: {

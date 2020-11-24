@@ -164,6 +164,9 @@
       }
     },
     created() {
+      if(!this.$attrs.auth){
+        this.$router.push('/');
+      }
       this.getCategories();
       if (this.$route.params.advertisement) {
         this.getData(this.$route.params.advertisement)

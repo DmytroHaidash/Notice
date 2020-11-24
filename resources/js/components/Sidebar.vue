@@ -9,6 +9,7 @@
                         </li>
                         <li v-if="$attrs.auth">
                             <router-link to="/advertisements/create">Cоздать объявление</router-link>
+                            <router-link to="/categories">Категории</router-link>
                         </li>
                     </ul>
                     <div class="copyright">

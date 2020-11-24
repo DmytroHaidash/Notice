@@ -23,7 +23,8 @@ Route::group([
 ], function () {
     Route::get('/profile/{user}', [UserController::class, 'profile']);
     Route::post('/profile/{user}',[UserController::class, 'update']);
-    Route::get('/categories', [CategoriesController::class, 'items']);
+    Route::get('/categories/all', [CategoriesController::class, 'all']);
+    Route::get('/categories/parents', [CategoriesController::class, 'parents']);
 
     Route::group([
         'prefix' => 'comments',

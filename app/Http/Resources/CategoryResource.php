@@ -17,8 +17,12 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'children' => new CategoryResource($this->children),
-            'count_ads' => $this->advertisements->count()
+            'children' => CategoryResource::collection($this->children),
+            'count_ads' => $this->advertisements->count(),
+            'parent' => $this->parent_id ? [
+                'id' => $this->id,
+                'title' => $this->title,
+                ] : null,
         ];
     }
 }

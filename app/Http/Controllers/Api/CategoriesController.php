@@ -9,8 +9,13 @@ use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
-    public function items()
+    public function all()
     {
-        return response()->json(new CategoryResource(Category::all()));
+        return response()->json(CategoryResource::collection(Category::all()));
+    }
+
+    public function parents()
+    {
+        return response()->json(CategoryResource::collection(Category::onlyParents()->get()));
     }
 }

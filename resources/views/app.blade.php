@@ -11,6 +11,7 @@
 
 <body>
 <div id="app">
+    @include('partials.icons')
     <div class="header">
         <div class="nav">
             @guest

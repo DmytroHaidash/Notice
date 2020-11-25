@@ -2,10 +2,13 @@
     <div class="content-col" v-if="advertisement">
         <div class="content-body">
             <img :src="advertisement.image" width="400">
-            <h1 class="title">
+            <h1 class="title" style="display: flex;">
                 {{advertisement.title}}
+                <add-to-favorite :advertisement="advertisement"></add-to-favorite>
             </h1>
-            <p>{{advertisement.category.parent ? advertisement.category.parent.title +' -> ' : ''}} {{advertisement.category.title}}</p>
+
+            <p>{{advertisement.category.parent ? advertisement.category.parent.title +' -> ' : ''}}
+                {{advertisement.category.title}}</p>
             <router-link :to="{path: `/profile/${advertisement.user.id}`}"
                          v-if="$attrs.auth" style="display: flex;">
                 <img :src="advertisement.user.image" alt="" style="height: 50px;">
@@ -38,6 +41,7 @@
 <script>
   import GoogleMap from './../components/GMap';
   import Comments from './../components/comments/List';
+  import AddToFavorite from './../components/AddToFavorite';
 
   export default {
     data() {
@@ -48,6 +52,7 @@
     components: {
       GoogleMap,
       Comments,
+      AddToFavorite,
     },
     created() {
       this.getData(this.$route.params.advertisement);

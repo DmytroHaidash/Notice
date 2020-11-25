@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AdvertisementsController;
 use App\Http\Controllers\Api\CategoriesController;
 use App\Http\Controllers\Api\CommentsController;
+use App\Http\Controllers\Api\FavoritesController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,14 @@ Route::group([
     Route::post('/profile/{user}',[UserController::class, 'update']);
     Route::get('/categories/all', [CategoriesController::class, 'all']);
     Route::get('/categories/parents', [CategoriesController::class, 'parents']);
+
+    Route::group([
+        'prefix' => 'favorite',
+        'middleware' => 'auth',
+    ], function(){
+       Route::get('/{advertisement}', [FavoritesController::class, 'check']);
+       Route::post('/{advertisement}', [FavoritesController::class, 'add']);
+    });
 
     Route::group([
         'prefix' => 'comments',

@@ -53,6 +53,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Advertisement::class);
     }
 
+    public function favorites():HasMany
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
     public function getImageAttribute()
     {
         $media = '/images/noimage.png';

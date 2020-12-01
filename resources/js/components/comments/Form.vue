@@ -41,13 +41,13 @@
           advertisement_id: this.$route.params.advertisement,
         };
         if (this.edit) {
-          axios.post(`comments/update/${this.edit.id}`, formData)
+          axios.put(`comments/${this.edit.id}`, formData)
             .then(({data}) => {
               this.$emit('send', data);
               this.content = '';
             });
         } else {
-          axios.post('comments/store', formData)
+          axios.post('comments/', formData)
             .then(({data}) => {
               this.$emit('store', data);
               this.content = '';

@@ -22,36 +22,36 @@ Route::group([
     'namespace' => 'Api',
     'middleware' => 'web',
 ], function () {
-    Route::get('/profile/{user}', [UserController::class, 'profile']);
-    Route::post('/profile/{user}',[UserController::class, 'update']);
-    Route::get('/categories/all', [CategoriesController::class, 'all']);
-    Route::get('/categories/parents', [CategoriesController::class, 'parents']);
+    Route::get('/users/{user}', 'UserController@profile');
+    Route::put('/users/{user}', 'UserController@update');
+    Route::get('/categories/all', 'CategoriesController@index');
+    Route::get('/categories/parents', 'CategoriesController@parents');
 
     Route::group([
         'prefix' => 'favorite',
         'middleware' => 'auth',
-    ], function(){
-        Route::get('/items', [FavoritesController::class, 'items']);
-        Route::get('/count', [FavoritesController::class, 'count' ]);
-       Route::get('/{advertisement}', [FavoritesController::class, 'check']);
-       Route::post('/{advertisement}', [FavoritesController::class, 'add']);
+    ], function () {
+        Route::get('/items', 'FavoritesController@items');
+        Route::get('/count', 'FavoritesController@count');
+        Route::get('/{advertisement}', 'FavoritesController@check');
+        Route::post('/{advertisement}', 'FavoritesController@store');
     });
 
     Route::group([
         'prefix' => 'comments',
-    ], function(){
-       Route::post('/store', [CommentsController::class, 'store'])->middleware('auth');
-       Route::post('/update/{comment}', [CommentsController::class, 'update'])->middleware('auth');
-       Route::get('/items', [CommentsController::class, 'items']);
+    ], function () {
+        Route::get('/', 'CommentsController@index');
+        Route::post('/', 'CommentsController@store')->middleware('auth');
+        Route::put('/{comment}', 'CommentsController@update')->middleware('auth');
     });
 
     Route::group([
         'prefix' => 'advertisements',
     ], function () {
-       Route::get('/', [AdvertisementsController::class, 'items']);
-       Route::get('/category/{category}', [AdvertisementsController::class, 'categoryItems']);
-       Route::post('/store', [AdvertisementsController::class, 'store'])->middleware('auth');
-       Route::post('/update/{advertisement}', [AdvertisementsController::class, 'update'])->middleware('auth');
-       Route::get('/{advertisement}', [AdvertisementsController::class, 'item']);
+        Route::get('/', 'AdvertisementsController@index');
+        Route::post('/', 'AdvertisementsController@store')->middleware('auth');
+        Route::get('/category/{category}', 'AdvertisementsController@categoryItems');
+        Route::put('/{advertisement}', 'AdvertisementsController@update')->middleware('auth');
+        Route::get('/{advertisement}', 'AdvertisementsController@show');
     });
 });

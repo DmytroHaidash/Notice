@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoritesController extends Controller
 {
-    public function add(Advertisement $advertisement)
+    public function store(Advertisement $advertisement)
     {
         $exists = Auth::user()->favorites()->where('advertisement_id', $advertisement->id)->first();
         if ($exists) {

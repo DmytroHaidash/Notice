@@ -76,7 +76,7 @@
       };
       if(this.$route.params.user) {
         axios
-          .get(`/profile/${this.$route.params.user}`)
+          .get(`/users/${this.$route.params.user}`)
           .then(({data}) => {
             if (data.latitude) {
               this.options.center.lat = data.latitude;

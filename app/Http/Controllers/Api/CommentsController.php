@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class CommentsController extends Controller
 {
+    public function index()
+    {
+        return response()->json(new CommentsPaginatedResource(Comment::latest()->paginate(5)));
+    }
+
     public function store(Request $request)
     {
         $comment = CommentsRepository::store($request);
@@ -21,10 +26,5 @@ class CommentsController extends Controller
     {
         $comment = CommentsRepository::update($request, $comment);
         return response()->json(new CommentResource($comment));
-    }
-
-    public function items()
-    {
-        return response()->json(new CommentsPaginatedResource(Comment::latest()->paginate(5)));
     }
 }

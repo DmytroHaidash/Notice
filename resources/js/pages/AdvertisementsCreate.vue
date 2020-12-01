@@ -90,7 +90,6 @@
         upload:null,
         latitude: null,
         longitude: null,
-        url: '/advertisements/store',
         categories: null,
         category: null,
       }
@@ -101,7 +100,6 @@
     },
     methods: {
       checkCategory(category){
-        console.log(category);
         this.category = category;
       },
       handleImage(event) {
@@ -133,7 +131,11 @@
           latitude: this.latitude,
           category_id: this.category.id
         };
-        axios.post(this.url, formData);
+        if (this.$route.params.advertisement) {
+          axios.put(`/advertisements/${this.$route.params.advertisement}`, formData);
+        }else{
+          axios.post('/advertisements/', formData);
+        }
         this.$router.push('/');
       },
       getData(advertisement) {
@@ -152,7 +154,6 @@
             this.latitude = data.latitude;
             this.category = data.category;
           });
-        this.url = `/advertisements/update/${advertisement}`;
       },
       getCategories(){
         axios

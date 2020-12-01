@@ -74,7 +74,7 @@
     methods: {
       getData(user) {
         axios
-          .get(`/profile/${user}`)
+          .get(`/users/${user}`)
           .then(({data}) => {
             this.user = data;
             this.image = data.image;
@@ -110,7 +110,7 @@
           longitude: this.user.longitude,
           latitude: this.user.latitude
         };
-        axios.post(`profile/${this.user.id}`, formData);
+        axios.put(`users/${this.user.id}`, formData);
         this.$router.push('/');
       },
     },

@@ -36,7 +36,6 @@
       parseDate() {
         let updated = new Date(this.item.updated_at);
         updated.setMinutes(updated.getMinutes() + 10);
-        console.log(updated);
         return updated;
       },
       author(){

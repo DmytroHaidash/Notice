@@ -27,7 +27,7 @@
     data() {
       return {
         comments: [],
-        url: 'comments/items',
+        url: 'comments/',
         loadMore: true
       }
     },

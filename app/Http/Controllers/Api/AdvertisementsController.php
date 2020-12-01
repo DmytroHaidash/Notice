@@ -18,7 +18,7 @@ class AdvertisementsController extends Controller
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function items(){
+    public function index(){
         return response()->json(new AdvertisementPaginatedResource(Advertisement::paginate(15)));
     }
 
@@ -31,7 +31,7 @@ class AdvertisementsController extends Controller
      * @param Advertisement $advertisement
      * @return \Illuminate\Http\JsonResponse
      */
-    public function item(Advertisement $advertisement)
+    public function show(Advertisement $advertisement)
     {
         return response()->json(new AdvertisementResource($advertisement));
     }

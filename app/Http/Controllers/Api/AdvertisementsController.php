@@ -7,7 +7,9 @@ use App\Http\Requests\AdvertisementsRequest;
 use App\Http\Resources\AdvertisementPaginatedResource;
 use App\Http\Resources\AdvertisementResource;
 use App\Models\Advertisement;
+use App\Models\Category;
 use App\Repository\AdvertisementsRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -18,6 +20,11 @@ class AdvertisementsController extends Controller
      */
     public function items(){
         return response()->json(new AdvertisementPaginatedResource(Advertisement::paginate(15)));
+    }
+
+    public function categoryItems(Category $category)
+    {
+        return response()->json(new AdvertisementPaginatedResource(Advertisement::where('category_id', $category->id)->paginate(15)));
     }
 
     /**

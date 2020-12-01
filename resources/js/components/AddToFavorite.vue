@@ -22,6 +22,8 @@
           .then(() => {
             this.favorited = !this.favorited;
           });
+
+        VBus.$emit('changeFavorite');
       },
       checkFavorite() {
         axios.get(`/favorite/${this.advertisement.id}`)

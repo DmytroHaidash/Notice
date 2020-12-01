@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FavoriteResource;
 use App\Models\Advertisement;
 use App\Models\Favorite;
 use App\Repository\FavoritesRepository;
@@ -25,5 +26,15 @@ class FavoritesController extends Controller
     public function check(Advertisement $advertisement)
     {
         return response()->json(Auth::user()->favorites->contains('advertisement_id', $advertisement->id));
+    }
+
+    public function count()
+    {
+        return response()->json(Auth::user()->favorites->count());
+    }
+
+    public function items()
+    {
+        return response()->json(FavoriteResource::collection(Auth::user()->favorites));
     }
 }

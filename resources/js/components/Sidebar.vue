@@ -8,7 +8,7 @@
                             <router-link to='/' exact>Обьявления</router-link>
                         </li>
                         <li v-if="$attrs.auth">
-                            <router-link to="/advertisements/create">Cоздать объявление</router-link>
+                            <router-link to="/advertisement/create">Cоздать объявление</router-link>
                             <router-link to="/categories">Категории</router-link>
                         </li>
                     </ul>

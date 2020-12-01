@@ -24,6 +24,7 @@
                 @endif
             @else
                 <a href="/profile/{{Auth::user()->id}}">{{ Auth::user()->name }}</a>
+                <favorite-button></favorite-button>
 
                 <a href="{{ route('logout') }}"
                    onclick="event.preventDefault();

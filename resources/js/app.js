@@ -5,8 +5,10 @@ import VueRouter from 'vue-router';
 import routes from './routes';
 import Sidebar from './components/Sidebar';
 import * as VueGoogleMaps from "vue2-google-maps";
-import ScrollLoader from 'vue-scroll-loader'
+import ScrollLoader from 'vue-scroll-loader';
+import FavoriteButton from './components/FavoriteButton';
 
+window.VBus = new Vue();
 
 const router = new VueRouter({
     mode: 'history',
@@ -16,7 +18,6 @@ const router = new VueRouter({
 Vue.use(VueRouter);
 Vue.use(ScrollLoader);
 
-Vue.component('sidebar', Sidebar);
 Vue.use(VueGoogleMaps, {
     load: {
         key: 'AIzaSyADRgkZvLE3XwYgRlAz3PMd6B1Erk9fAgE',
@@ -30,5 +31,9 @@ new Vue({
     router,
     mounted() {
         require('./phone-mask');
+    },
+    components: {
+        Sidebar,
+        FavoriteButton,
     }
 });

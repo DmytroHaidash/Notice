@@ -31,6 +31,8 @@ Route::group([
         'prefix' => 'favorite',
         'middleware' => 'auth',
     ], function(){
+        Route::get('/items', [FavoritesController::class, 'items']);
+        Route::get('/count', [FavoritesController::class, 'count' ]);
        Route::get('/{advertisement}', [FavoritesController::class, 'check']);
        Route::post('/{advertisement}', [FavoritesController::class, 'add']);
     });
@@ -47,9 +49,9 @@ Route::group([
         'prefix' => 'advertisements',
     ], function () {
        Route::get('/', [AdvertisementsController::class, 'items']);
+       Route::get('/category/{category}', [AdvertisementsController::class, 'categoryItems']);
        Route::post('/store', [AdvertisementsController::class, 'store'])->middleware('auth');
        Route::post('/update/{advertisement}', [AdvertisementsController::class, 'update'])->middleware('auth');
        Route::get('/{advertisement}', [AdvertisementsController::class, 'item']);
-
     });
 });

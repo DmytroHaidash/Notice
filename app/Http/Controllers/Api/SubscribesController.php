@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 
 class SubscribesController extends Controller
 {
-    public function store(){
-        Auth::user()->subscribes()->create(['hash' => Hash::make(Auth::user()->email)]);
+    public function store(User $user){
+        $user->subscribes()->create();
         return response()->json('status',  200);
     }
 

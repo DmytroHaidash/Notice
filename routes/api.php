@@ -54,4 +54,6 @@ Route::group([
         Route::put('/{advertisement}', 'AdvertisementsController@update')->middleware('auth');
         Route::get('/{advertisement}', 'AdvertisementsController@show');
     });
+
+    Route::post('/subscribe', 'SubscribesController@store')->middleware('auth');
 });

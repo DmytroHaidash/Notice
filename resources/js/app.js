@@ -20,7 +20,7 @@ Vue.use(ScrollLoader);
 
 Vue.use(VueGoogleMaps, {
     load: {
-        key: 'AIzaSyADRgkZvLE3XwYgRlAz3PMd6B1Erk9fAgE',
+        key: 'AIzaSyD0k7YhxBzQC2RxxCNmtu6WsCbY6lhcC8I',
         libraries: "places,drawing,visualization", // necessary for places input
         region: "uk,en"
     }

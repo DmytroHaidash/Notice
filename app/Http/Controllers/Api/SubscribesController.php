@@ -18,7 +18,7 @@ class SubscribesController extends Controller
 
     public function destroy(User $user)
     {
-        $user->subscribe->delete();
+        $user->subscribes->delete();
         return response()->json('status',  200);
     }
 }

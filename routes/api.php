@@ -53,6 +53,7 @@ Route::group([
         Route::get('/category/{category}', 'AdvertisementsController@categoryItems');
         Route::put('/{advertisement}', 'AdvertisementsController@update')->middleware('auth');
         Route::get('/{advertisement}', 'AdvertisementsController@show');
+        Route::delete('/{advertisement}', 'AdvertisementsController@destroy')->middleware('auth');
     });
 
     Route::post('/subscribe/{user}', 'SubscribesController@store')->middleware('auth');

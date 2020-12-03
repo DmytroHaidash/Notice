@@ -14,7 +14,7 @@ class AdvertisementsRepository
         $advertisement = Auth::user()->advertisements()->create(
             $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude', 'category_id')
         );
-        if($request->filled('image')){
+        if ($request->filled('image')) {
             $advertisement->addMediaFromBase64($request->input('image'))
                 ->sanitizingFileName(filenameSanitizer())
                 ->toMediaCollection('advertisement');
@@ -28,7 +28,7 @@ class AdvertisementsRepository
         $advertisement->update(
             $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude', 'category_id')
         );
-        if($request->filled('image')){
+        if ($request->filled('image')) {
             $advertisement->clearMediaCollection('advertisement');
             $advertisement->addMediaFromBase64($request->input('image'))
                 ->sanitizingFileName(filenameSanitizer())
@@ -36,5 +36,11 @@ class AdvertisementsRepository
         }
 
         return $advertisement;
+    }
+
+    public static function destroy(Advertisement $advertisement)
+    {
+        $advertisement->delete();
+        return true;
     }
 }

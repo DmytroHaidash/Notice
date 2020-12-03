@@ -55,5 +55,6 @@ Route::group([
         Route::get('/{advertisement}', 'AdvertisementsController@show');
     });
 
-    Route::post('/subscribe', 'SubscribesController@store')->middleware('auth');
+    Route::post('/subscribe/{user}', 'SubscribesController@store')->middleware('auth');
+    Route::delete('/unsubscribe/{user}', 'SubscribesController@destroy')->middleware('auth');
 });

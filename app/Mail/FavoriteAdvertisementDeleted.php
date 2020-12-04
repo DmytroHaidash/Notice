@@ -35,7 +35,7 @@ class FavoriteAdvertisementDeleted extends Mailable
     public function build()
     {
         return $this->to($this->user->email)
-            ->subject('Новые объявления')
+            ->subject('Избранное объявление удалено')
             ->view('mail.deleted-favorites');
     }
 }

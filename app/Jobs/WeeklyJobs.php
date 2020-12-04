@@ -33,8 +33,9 @@ class WeeklyJobs implements ShouldQueue
     public function handle()
     {
         $subscribers = Subscribe::get();
+        $advertisements = Advertisement::latest()->take(5);
         foreach ($subscribers as $subscriber){
-            dispatch( new WeeklySendJobs($subscriber->user))->onQueue('mail');
+            Mail::send(new WeeklyNews($subscriber->user, $advertisements));
         }
     }
 }

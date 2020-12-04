@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Mail\FavoriteAdvertisementDeleted;
 use App\Models\Advertisement;
+use App\Repository\FavoritesRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -35,6 +36,7 @@ class DeleteFavoriteJobs implements ShouldQueue
     {
         foreach ($this->advertisement->favorites as $favorite) {
             Mail::send(new FavoriteAdvertisementDeleted($favorite->user, $this->advertisement));
+            FavoritesRepository::destroy($favorite);
         }
     }
 }

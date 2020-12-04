@@ -51,7 +51,8 @@
                                      :to="{path: `/advertisement/edit/${item.id}`, params: item.id}">
                             Редактировать
                         </router-link>
-                        <a href="#" @click.prevent="deleteAdvertisement(item.id, index)">Удалить</a>
+                        <a href="#" @click.prevent="deleteAdvertisement(item.id, index)"
+                           v-if="$attrs.auth && $attrs.auth.id === item.user.id">Удалить</a>
                     </th>
                 </tr>
                 </tbody>

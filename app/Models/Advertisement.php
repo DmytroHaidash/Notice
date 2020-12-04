@@ -42,6 +42,11 @@ class Advertisement extends Model implements HasMedia
         return $this->belongsToMany(Comment::class);
     }
 
+    public function favorites():BelongsToMany
+    {
+        $this->belongsToMany(Favorite::class);
+    }
+
     public function getImageAttribute()
     {
         $media = '/images/noimage.png';

@@ -14,7 +14,7 @@ class FavoriteAdvertisementDeleted extends Mailable
     use Queueable, SerializesModels;
 
     private $user;
-    private $advertisement;
+    public $advertisement;
 
     /**
      * FavoriteAdvertisementDeleted constructor.

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 
+use App\Jobs\DeleteFavoriteJobs;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +42,7 @@ class AdvertisementsRepository
     public static function destroy(Advertisement $advertisement)
     {
         $advertisement->delete();
+        dispatch(new DeleteFavoriteJobs($advertisement));
         return true;
     }
 }

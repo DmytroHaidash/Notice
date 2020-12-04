@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -43,9 +44,9 @@ class Advertisement extends Model implements HasMedia
         return $this->belongsToMany(Comment::class);
     }
 
-    public function favorites():BelongsToMany
+    public function favorites():HasMany
     {
-        $this->belongsToMany(Favorite::class);
+        return $this->hasMany(Favorite::class);
     }
 
     public function getImageAttribute()

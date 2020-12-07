@@ -52,7 +52,7 @@
                             Редактировать
                         </router-link>
                         <a href="#" @click.prevent="deleteAdvertisement(item.id, index)"
-                           v-if="$attrs.auth && $attrs.auth.id === item.user.id">Удалить</a>
+                           v-if="$attrs.auth && ($attrs.auth.id === item.user.id || $attrs.auth.role === 'admin')">Удалить</a>
                     </th>
                 </tr>
                 </tbody>

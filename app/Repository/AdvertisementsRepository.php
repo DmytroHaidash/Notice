@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 
+use App\Jobs\AdminsDeletedJobs;
 use App\Jobs\DeleteFavoriteJobs;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
@@ -42,7 +43,11 @@ class AdvertisementsRepository
     public static function destroy(Advertisement $advertisement)
     {
         $advertisement->delete();
+        if (Auth::user()->role == 'admin') {
+            dispatch(new AdminsDeletedJobs($advertisement));
+        }
         dispatch(new DeleteFavoriteJobs($advertisement));
+
         return true;
     }
 }

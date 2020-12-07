@@ -24,6 +24,8 @@ class UserResource extends JsonResource
             'about' => $this->about,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'subscribe' => $this->subscribes,
+            'role' =>$this->role
         ];
     }
 }

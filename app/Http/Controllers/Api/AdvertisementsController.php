@@ -56,4 +56,12 @@ class AdvertisementsController extends Controller
         AdvertisementsRepository::update($request, $advertisement);
         return response()->json('status', 200);
     }
+
+    public function destroy(Advertisement $advertisement){
+        if(Auth::user()->id == $advertisement->user_id){
+            AdvertisementsRepository::destroy($advertisement);
+            return response()->json('status', 200);
+        }
+        return response()->json('error', 403);
+    }
 }

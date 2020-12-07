@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="advertisements.length">
-                <tr v-for="item in advertisements">
+                <tr v-for="(item, index) in advertisements">
                     <th>{{item.id}}</th>
                     <th>
                         <img :src="item.image" width="50">
@@ -51,6 +51,8 @@
                                      :to="{path: `/advertisement/edit/${item.id}`, params: item.id}">
                             Редактировать
                         </router-link>
+                        <a href="#" @click.prevent="deleteAdvertisement(item.id, index)"
+                           v-if="$attrs.auth && ($attrs.auth.id === item.user.id || $attrs.auth.role === 'admin')">Удалить</a>
                     </th>
                 </tr>
                 </tbody>
@@ -88,6 +90,12 @@
       this.getAllAdvertisements();
     },
     methods: {
+      deleteAdvertisement(id, index){
+        axios.delete(`/advertisements/${id}`)
+          .then(()=> {
+            this.advertisements.splice(index, 1);
+          })
+      },
       getFiltrAdvertisements(){
         if(this.selectedCategory){
           this.url = `/advertisements/category/${this.selectedCategory}`

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 
+use App\Jobs\NewCommentsJob;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +17,7 @@ class CommentsRepository
             'advertisement_id' => $request->input('advertisement_id'),
             'content' => $request->input('content')
         ]);
+        dispatch(new NewCommentsJob($comment));
         return $comment;
     }
 

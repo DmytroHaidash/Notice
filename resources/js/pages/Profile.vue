@@ -39,9 +39,14 @@
                         </div>
                     </div>
                     <google-map @map="map" :autocomplete="true"></google-map>
-                    <button class="btn btn-primary">
-                        Сохранить
-                    </button>
+                    <div style="margin-top: 20px; display: flex">
+                        <button class="btn btn-outline-primary"
+                                @click.prevent="subscribe" v-if="!user.subscribe"
+                            style="margin-right: 20px">Подписаться на рассылку новостей</button>
+                        <button class="btn btn-primary">
+                            Сохранить
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -66,12 +71,18 @@
       Wysiwyg
     },
     created() {
-      if(!this.$attrs.auth){
+      if (!this.$attrs.auth) {
         this.$router.push('/');
       }
       this.getData(this.$route.params.user);
     },
     methods: {
+      subscribe() {
+        axios.post(`/subscribe/${this.user.id}`)
+          .then(() => {
+            this.user.subscribe = true
+          })
+      },
       getData(user) {
         axios
           .get(`/users/${user}`)

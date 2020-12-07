@@ -35,8 +35,10 @@ class DeleteFavoriteJobs implements ShouldQueue
     public function handle()
     {
         foreach ($this->advertisement->favorites as $favorite) {
-            Mail::send(new FavoriteAdvertisementDeleted($favorite->user, $this->advertisement));
-            FavoritesRepository::destroy($favorite);
+            if($favorite->user_id != $this->advertisement->user_id){
+                Mail::send(new FavoriteAdvertisementDeleted($favorite->user, $this->advertisement));
+            }
         }
+        FavoritesRepository::destroy($favorite);
     }
 }

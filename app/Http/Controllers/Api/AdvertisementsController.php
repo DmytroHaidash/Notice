@@ -58,7 +58,7 @@ class AdvertisementsController extends Controller
     }
 
     public function destroy(Advertisement $advertisement){
-        if(Auth::user()->id == $advertisement->user_id){
+        if(Auth::user()->id == $advertisement->user_id || Auth::user()->role == 'admin' ){
             AdvertisementsRepository::destroy($advertisement);
             return response()->json('status', 200);
         }

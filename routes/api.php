@@ -58,4 +58,10 @@ Route::group([
 
     Route::post('/subscribe/{user}', 'SubscribesController@store')->middleware('auth');
     Route::delete('/unsubscribe/{user}', 'SubscribesController@destroy')->middleware('auth');
+
+    Route::group([
+        'prefix' => 'exports',
+    ], function(){
+       Route::get('/advertisements', 'ExportsController@advertisements')->middleware('auth');
+    });
 });

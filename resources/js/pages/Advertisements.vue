@@ -4,13 +4,13 @@
             <div style="margin-bottom: 20px; width: 80%" v-if="categories.length">
                 <label for="category" style="margin-bottom: 20px">Фильтровать по категории:</label>
                 <select name="category" id="category" style="margin-bottom: 20px; width: 100%"
-                        v-model="selectedCategory" @change="getFiltrAdvertisements">
+                        v-model="selectedCategory" @change="getFilterAdvertisements">
                     <option :value="null" selected>Все</option>
 
                     <option v-for="category in categories" :value="category.id">{{category.title}}</option>
                 </select>
             </div>
-            <div style="margin-bottom: 20px" v-if="$attrs.auth && $attrs.auth.role === 'admin'">
+            <div style="margin-bottom: 20px" v-if="$attrs.auth && $attrs.auth.role === 'admin' && advertisements.length">
                 <preloader v-if="loading"></preloader>
                 <button class="btn btn-outline-primary" @click.prevent="exportAdvertisements" v-if="!loading">Експорт
                     объявлений
@@ -80,7 +80,7 @@
 
 <script>
     import Preloader from './../components/Preloader';
-
+    import { saveAs } from 'file-saver';
   export default {
     data() {
       return {
@@ -107,7 +107,9 @@
         axios.get('/exports/advertisements').then(
           window.Echo.channel(`advertisements`).listen('ExportAdvertisements', (e) => {
             console.log(e);
+            saveAs(e.data, 'export-advertisements.csv');
             this.loading = false;
+            window.Echo.leave('advertisements');
           })
         )
       },
@@ -117,7 +119,7 @@
             this.advertisements.splice(index, 1);
           })
       },
-      getFiltrAdvertisements() {
+      getFilterAdvertisements() {
         if (this.selectedCategory) {
           this.url = `/advertisements/category/${this.selectedCategory}`
         } else {

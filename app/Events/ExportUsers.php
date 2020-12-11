@@ -2,7 +2,6 @@
 
 namespace App\Events;
 
-use App\Services\Export;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,14 +10,14 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class ExportAdvertisements implements ShouldBroadcast
+class ExportUsers
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $data;
 
     /**
-     * ExportAdvertisements constructor.
+     * ExportUsers constructor.
      * @param $data
      */
     public function __construct($data)
@@ -33,6 +32,6 @@ class ExportAdvertisements implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('advertisements');
+        return new Channel('users');
     }
 }

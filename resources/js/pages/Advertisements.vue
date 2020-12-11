@@ -15,7 +15,9 @@
                 <button class="btn btn-outline-primary" @click.prevent="exportAdvertisements" v-if="!loading">Експорт
                     объявлений
                 </button>
-
+                <button class="btn btn-outline-primary" @click.prevent="exportUsers" v-if="!loading">Експорт
+                    пользователей
+                </button>
             </div>
 
             <table style="width: 100%">
@@ -110,6 +112,17 @@
             saveAs(e.data, 'export-advertisements.csv');
             this.loading = false;
             window.Echo.leave('advertisements');
+          })
+        )
+      },
+      exportUsers(){
+        this.loading = true;
+        axios.get('/exports/users').then(
+          window.Echo.channel(`users`).listen('ExportUsers', (e) => {
+            console.log(e);
+            saveAs(e.data, 'export-users.csv');
+            this.loading = false;
+            window.Echo.leave('users');
           })
         )
       },

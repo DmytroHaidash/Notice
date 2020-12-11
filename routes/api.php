@@ -63,5 +63,6 @@ Route::group([
         'prefix' => 'exports',
     ], function(){
        Route::get('/advertisements', 'ExportsController@advertisements')->middleware('auth');
+       Route::get('/users', 'ExportsController@users')->middleware('auth');
     });
 });

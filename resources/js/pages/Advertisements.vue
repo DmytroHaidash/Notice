@@ -108,7 +108,6 @@
         this.loading = true;
         axios.get('/exports/advertisements').then(
           window.Echo.channel(`advertisements`).listen('ExportAdvertisements', (e) => {
-            console.log(e);
             saveAs(e.data, 'export-advertisements.csv');
             this.loading = false;
             window.Echo.leave('advertisements');
@@ -119,7 +118,6 @@
         this.loading = true;
         axios.get('/exports/users').then(
           window.Echo.channel(`users`).listen('ExportUsers', (e) => {
-            console.log(e);
             saveAs(e.data, 'export-users.csv');
             this.loading = false;
             window.Echo.leave('users');

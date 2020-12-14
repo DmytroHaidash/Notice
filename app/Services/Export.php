@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Jobs\DeleteFileJobs;
 use App\Models\Advertisement;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 
@@ -18,7 +19,7 @@ class Export
 
             $columns = array('Image', 'Title', 'Created_at', 'Description', 'Phone', 'Country', 'Email', 'Address', 'Author_email');
 
-            $file = fopen($fileName, 'w');
+            $file = fopen(public_path($fileName), 'w');
             header('Content-Encoding: UTF-8');
             header('Content-Type: text/csv, charset=UTF-8');
             header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -45,7 +46,7 @@ class Export
         return url($fileName);
     }
 
-    public function users()
+    public static function users()
     {
         $fileName = 'users.csv';
         if (!File::exists(public_path($fileName))) {
@@ -53,7 +54,7 @@ class Export
 
             $columns = array('First_name', 'Last_name', 'Email', 'Advertisements_qty');
 
-            $file = fopen($fileName, 'w');
+            $file = fopen(public_path($fileName), 'w');
             header('Content-Encoding: UTF-8');
             header('Content-Type: text/csv, charset=UTF-8');
             header('Content-Disposition: attachment; filename="' . $fileName . '"');
@@ -73,5 +74,28 @@ class Export
         return url($fileName);
     }
 
+    public static function comments(Advertisement $advertisement)
+    {
+        $fileName = 'comments' . $advertisement->id . '.csv';
+        if (!File::exists(public_path($fileName))) {
+            $comments = $advertisement->comments;
+            $columns = array('User_name', 'User_email', 'Created_at', 'Content');
 
+            $file = fopen(public_path($fileName), 'w');
+            header('Content-Encoding: UTF-8');
+            header('Content-Type: text/csv, charset=UTF-8');
+            header('Content-Disposition: attachment; filename="' . $fileName . '"');
+            fputcsv($file, $columns);
+            foreach ($comments as $comment) {
+                $row['User_name'] = $comment->user->name;
+                $row['User_email'] = $comment->user->email;
+                $row['Created_at'] = $comment->created_at;
+                $row['Content'] = $comment->content;
+
+                fputcsv($file, array($row['User_name'], $row['User_email'], $row['Created_at'], $row['Content']));
+            }
+            fclose($file);
+        }
+        return url($fileName);
+    }
 }

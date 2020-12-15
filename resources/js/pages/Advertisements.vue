@@ -3,14 +3,22 @@
         <div class="content-body">
             <div style="margin-bottom: 20px; width: 80%" v-if="categories.length">
                 <label for="category" style="margin-bottom: 20px">Фильтровать по категории:</label>
-                <select name="category" id="category" style="margin-bottom: 20px; width: 100%" v-model="selectedCategory" @change="getFiltrAdvertisements">
+                <select name="category" id="category" style="margin-bottom: 20px; width: 100%"
+                        v-model="selectedCategory" @change="getFilterAdvertisements">
                     <option :value="null" selected>Все</option>
 
                     <option v-for="category in categories" :value="category.id">{{category.title}}</option>
                 </select>
             </div>
-
-
+            <div style="margin-bottom: 20px" v-if="$attrs.auth && $attrs.auth.role === 'admin' && advertisements.length">
+                <preloader v-if="loading"></preloader>
+                <button class="btn btn-outline-primary" @click.prevent="exportAdvertisements" v-if="!loading">Експорт
+                    объявлений
+                </button>
+                <button class="btn btn-outline-primary" @click.prevent="exportUsers" v-if="!loading">Експорт
+                    пользователей
+                </button>
+            </div>
 
             <table style="width: 100%">
                 <thead class="w-100">
@@ -73,6 +81,8 @@
 </template>
 
 <script>
+    import Preloader from './../components/Preloader';
+    import { saveAs } from 'file-saver';
   export default {
     data() {
       return {
@@ -80,7 +90,11 @@
         advertisements: [],
         categories: [],
         selectedCategory: null,
+        loading: false,
       }
+    },
+    components:{
+      Preloader
     },
     created() {
       if (this.$route.params.category) {
@@ -90,16 +104,36 @@
       this.getAllAdvertisements();
     },
     methods: {
-      deleteAdvertisement(id, index){
+      exportAdvertisements() {
+        this.loading = true;
+        axios.get('/exports/advertisements').then(
+          window.Echo.channel(`advertisements`).listen('ExportAdvertisements', (e) => {
+            saveAs(e.data, 'export-advertisements.csv');
+            this.loading = false;
+            window.Echo.leave('advertisements');
+          })
+        )
+      },
+      exportUsers(){
+        this.loading = true;
+        axios.get('/exports/users').then(
+          window.Echo.channel(`users`).listen('ExportUsers', (e) => {
+            saveAs(e.data, 'export-users.csv');
+            this.loading = false;
+            window.Echo.leave('users');
+          })
+        )
+      },
+      deleteAdvertisement(id, index) {
         axios.delete(`/advertisements/${id}`)
-          .then(()=> {
+          .then(() => {
             this.advertisements.splice(index, 1);
           })
       },
-      getFiltrAdvertisements(){
-        if(this.selectedCategory){
+      getFilterAdvertisements() {
+        if (this.selectedCategory) {
           this.url = `/advertisements/category/${this.selectedCategory}`
-        }else{
+        } else {
           this.url = '/advertisements'
         }
         this.advertisements = [];

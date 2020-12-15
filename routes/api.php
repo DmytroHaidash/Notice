@@ -40,7 +40,7 @@ Route::group([
     Route::group([
         'prefix' => 'comments',
     ], function () {
-        Route::get('/', 'CommentsController@index');
+        Route::get('/{advertisement}', 'CommentsController@index');
         Route::post('/', 'CommentsController@store')->middleware('auth');
         Route::put('/{comment}', 'CommentsController@update')->middleware('auth');
     });
@@ -58,4 +58,13 @@ Route::group([
 
     Route::post('/subscribe/{user}', 'SubscribesController@store')->middleware('auth');
     Route::delete('/unsubscribe/{user}', 'SubscribesController@destroy')->middleware('auth');
+
+    Route::group([
+        'prefix' => 'exports',
+        'middleware' => 'auth',
+    ], function(){
+       Route::get('/advertisements', 'ExportsController@advertisements');
+       Route::get('/users', 'ExportsController@users');
+       Route::get('/comments/{advertisement}', 'ExportsController@comments');
+    });
 });

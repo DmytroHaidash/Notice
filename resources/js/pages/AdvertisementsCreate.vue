@@ -134,7 +134,7 @@
         if (this.$route.params.advertisement) {
           axios.put(`/advertisements/${this.$route.params.advertisement}`, formData);
         }else{
-          axios.post('/advertisements/', formData);
+          axios.post('/advertisements', formData);
         }
         this.$router.push('/');
       },

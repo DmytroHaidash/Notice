@@ -47,7 +47,7 @@
               this.content = '';
             });
         } else {
-          axios.post('comments/', formData)
+          axios.post('comments', formData)
             .then(({data}) => {
               this.$emit('store', data);
               this.content = '';

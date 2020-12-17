@@ -58,6 +58,7 @@
               this.comments.push(...data.items);
               this.url = data.next;
             });
+          console.log()
           if(!this.url){
             this.loadMore = false
           }

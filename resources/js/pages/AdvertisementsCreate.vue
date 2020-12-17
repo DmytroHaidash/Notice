@@ -5,7 +5,7 @@
                 <div class="form-group in-focus">
                     <label for="title">Заголовок</label>
                     <div class="form-control">
-                        <input type="text" id="title" v-model="title" required>
+                        <input type="text" id="title" v-model="title" >
                     </div>
                 </div>
                 <div class="form-group in-focus">
@@ -87,7 +87,7 @@
         email: '',
         end_date: '',
         image: null,
-        upload:null,
+        upload: null,
         latitude: null,
         longitude: null,
         categories: null,
@@ -99,7 +99,7 @@
       Selected
     },
     methods: {
-      checkCategory(category){
+      checkCategory(category) {
         this.category = category;
       },
       handleImage(event) {
@@ -132,11 +132,26 @@
           category_id: this.category.id
         };
         if (this.$route.params.advertisement) {
-          axios.put(`/advertisements/${this.$route.params.advertisement}`, formData);
-        }else{
-          axios.post('/advertisements', formData);
+          axios.put(`/advertisements/${this.$route.params.advertisement}`, formData)
+            .then(res => {
+              if (res.status === 200) {
+                this.$router.push('/');
+              }
+            })
+            .catch((error) => {
+              alert(error.response.data.errors.title);
+            });
+        } else {
+          axios.post('/advertisements', formData)
+            .then(res => {
+              if (res.status === 200) {
+                this.$router.push('/');
+              }
+            })
+            .catch((error) => {
+              alert(error.response.data.errors.title);
+            });
         }
-        this.$router.push('/');
       },
       getData(advertisement) {
         axios
@@ -155,7 +170,7 @@
             this.category = data.category;
           });
       },
-      getCategories(){
+      getCategories() {
         axios
           .get('/categories/parents')
           .then(({data}) => {
@@ -165,7 +180,7 @@
       }
     },
     created() {
-      if(!this.$attrs.auth){
+      if (!this.$attrs.auth) {
         this.$router.push('/');
       }
       this.getCategories();
@@ -178,6 +193,6 @@
 <style scoped>
     .product-header-item {
         margin-bottom: 50px;
-        width:90%
+        width: 90%
     }
 </style>

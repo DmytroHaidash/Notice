@@ -7,8 +7,8 @@
 
         <comments-form @store="newComment" style="margin-bottom: 50px"></comments-form>
         <scroll-loader :loader-method="getData" :loader-enable="loadMore" style="display: block">
-            <comment v-if="comments.length" v-for="(comment, index) in comments" :comment="comment"
-                     :key="index"></comment>
+            <comment v-if="comments.length" v-for="comment in comments" :comment="comment"
+                     :key="comment.id"></comment>
         </scroll-loader>
 
     </div>
@@ -65,6 +65,7 @@
 
       },
       newComment(item) {
+        console.log(item);
         this.comments.unshift(item);
       }
     }

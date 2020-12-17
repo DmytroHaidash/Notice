@@ -16,18 +16,18 @@ class ExportsController extends Controller
     public function advertisements()
     {
         dispatch((new ExportAdvertisementsJob())->delay(now()->addSeconds(5)));
-        return response('status', 200);
+        return response('ok', 200);
     }
 
     public function users()
     {
         dispatch((new ExportUsersJob())->delay(now()->addSeconds(5)));
-        return response('status', 200);
+        return response('ok', 200);
     }
 
     public function comments(Advertisement $advertisement)
     {
         dispatch((new ExportCommentsJob($advertisement))->delay(now()->addSeconds(5)));
-        return response('status', 200);
+        return response('ok', 200);
     }
 }

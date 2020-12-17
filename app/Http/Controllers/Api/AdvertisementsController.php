@@ -43,7 +43,7 @@ class AdvertisementsController extends Controller
     public function store(AdvertisementsRequest $request)
     {
         AdvertisementsRepository::store($request);
-        return response()->json('status', 200);
+        return response()->json('ok', 200);
     }
 
     /**
@@ -54,13 +54,13 @@ class AdvertisementsController extends Controller
     public function update(AdvertisementsRequest $request, Advertisement $advertisement)
     {
         AdvertisementsRepository::update($request, $advertisement);
-        return response()->json('status', 200);
+        return response()->json('ok', 200);
     }
 
     public function destroy(Advertisement $advertisement){
         if(Auth::user()->id == $advertisement->user_id || Auth::user()->role == 'admin' ){
             AdvertisementsRepository::destroy($advertisement);
-            return response()->json('status', 200);
+            return response()->json('ok', 200);
         }
         return response()->json('error', 403);
     }

@@ -20,8 +20,8 @@ class CategoryResource extends JsonResource
             'children' => CategoryResource::collection($this->children),
             'count_ads' => $this->advertisements->count(),
             'parent' => $this->parent_id ? [
-                'id' => $this->id,
-                'title' => $this->title,
+                'id' => $this->parent->id,
+                'title' => $this->parent->title,
                 ] : null,
         ];
     }

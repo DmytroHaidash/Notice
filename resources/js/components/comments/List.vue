@@ -65,7 +65,6 @@
 
       },
       newComment(item) {
-        console.log(item);
         this.comments.unshift(item);
       }
     }

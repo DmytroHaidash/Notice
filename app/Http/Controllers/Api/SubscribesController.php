@@ -14,12 +14,12 @@ class SubscribesController extends Controller
 {
     public function store(User $user){
         SubscribesRepository::create($user);
-        return response()->json('status',  200);
+        return response()->json('ok',  200);
     }
 
     public function destroy(User $user)
     {
         SubscribesRepository::destroy($user);
-        return response()->json('status',  200);
+        return response()->json('ok',  200);
     }
 }

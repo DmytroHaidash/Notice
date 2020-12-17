@@ -20,7 +20,7 @@ class FavoritesController extends Controller
         } else {
              FavoritesRepository::create($advertisement);
         }
-        return response()->json(['status' => 200]);
+        return response()->json(['ok' => 200]);
     }
 
     public function check(Advertisement $advertisement)

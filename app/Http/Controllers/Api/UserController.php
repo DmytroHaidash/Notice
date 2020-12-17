@@ -18,6 +18,6 @@ class UserController extends Controller
     public function update(UsersRequest $request, User $user)
     {
         UserRepository::update($request, $user);
-        return response()->json('status', 200);
+        return response()->json('ok', 200);
     }
 }

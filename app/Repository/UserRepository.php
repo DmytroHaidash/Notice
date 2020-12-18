@@ -12,12 +12,6 @@ class UserRepository
     {
         $user->update($request->only('first_name', 'last_name', 'about', 'email', 'longitude', 'latitude'));
 
-        if($request->filled('image')){
-            $user->clearMediaCollection('avatar');
-            $user->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('avatar');
-        }
         return $user;
     }
 }

@@ -16,11 +16,6 @@ class AdvertisementsRepository
         $advertisement = Auth::user()->advertisements()->create(
             $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude', 'category_id')
         );
-        if ($request->filled('image')) {
-            $advertisement->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('advertisement');
-        }
 
         return $advertisement;
     }
@@ -30,12 +25,6 @@ class AdvertisementsRepository
         $advertisement->update(
             $request->only('title', 'description', 'phone', 'country', 'email', 'end_date', 'longitude', 'latitude', 'category_id')
         );
-        if ($request->filled('image')) {
-            $advertisement->clearMediaCollection('advertisement');
-            $advertisement->addMediaFromBase64($request->input('image'))
-                ->sanitizingFileName(filenameSanitizer())
-                ->toMediaCollection('advertisement');
-        }
 
         return $advertisement;
     }
@@ -43,10 +32,6 @@ class AdvertisementsRepository
     public static function destroy(Advertisement $advertisement)
     {
         $advertisement->delete();
-        if (Auth::user()->role == 'admin') {
-            dispatch(new AdminsDeletedJobs($advertisement));
-        }
-        dispatch(new DeleteFavoriteJobs($advertisement));
 
         return true;
     }

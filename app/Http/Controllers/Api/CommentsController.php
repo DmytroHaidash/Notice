@@ -9,6 +9,7 @@ use App\Http\Resources\CommentsPaginatedResource;
 use App\Models\Advertisement;
 use App\Models\Comment;
 use App\Repository\CommentsRepository;
+use App\Services\CommentsService;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -20,7 +21,7 @@ class CommentsController extends Controller
 
     public function store(CommentsRequest $request)
     {
-        $comment = CommentsRepository::store($request);
+        $comment = CommentsService::store($request);
         return response()->json(new CommentResource($comment));
     }
 

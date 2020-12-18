@@ -3,27 +3,16 @@
         <h1>
             Google Map
         </h1>
-        <div class="form-group in-focus" v-if="autocomplete">
-            <label>Адресс</label>
-            <div class="form-control">
-                <gmap-autocomplete @place_changed="setPlace"/>
-            </div>
-        </div>
-        <div class="search">
-
-        </div>
-
         <gmap-map
                 v-bind="options"
                 id="map"
                 :options="{disableDefaultUI:true}"
+                @click="setPlace"
         >
             <gmap-marker
-                    :key="index"
-                    :position="center = options.center"
-                    :clickable="true"
-                    :draggable="true"
-                    @click="center=options.center"
+                    :position="options.center"
+                    :clickable="false"
+                    :draggable="false"
             ></gmap-marker>
         </gmap-map>
     </div>
@@ -45,20 +34,24 @@
         },
       };
     },
-    props:{
-      autocomplete: Boolean, default(){return false}
+    props: {
+      autocomplete: Boolean, default() {
+        return false
+      }
     },
     computed: {
       google: gmapApi
     },
     methods: {
       setPlace(place) {
-        this.options.center.lat = place.geometry.viewport.Ya.i;
-        this.options.center.lng = place.geometry.viewport.Sa.i;
-        this.$emit('map', {
-          latitude: place.geometry.viewport.Ya.i,
-          longitude: place.geometry.viewport.Sa.i
-        })
+        if (this.autocomplete) {
+          this.options.center.lat = place.latLng.toJSON().lat;
+          this.options.center.lng = place.latLng.toJSON().lng;
+          this.$emit('map', {
+            latitude: place.latLng.toJSON().lat,
+            longitude: place.latLng.toJSON().lng
+          })
+        }
       }
     },
     created() {
@@ -73,8 +66,9 @@
               this.options.center.lng = data.longitude;
             }
           })
-      };
-      if(this.$route.params.user) {
+      }
+      ;
+      if (this.$route.params.user) {
         axios
           .get(`/users/${this.$route.params.user}`)
           .then(({data}) => {

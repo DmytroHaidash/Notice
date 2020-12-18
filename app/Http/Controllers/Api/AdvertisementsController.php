@@ -9,6 +9,7 @@ use App\Http\Resources\AdvertisementResource;
 use App\Models\Advertisement;
 use App\Models\Category;
 use App\Repository\AdvertisementsRepository;
+use App\Services\AdvertisementsService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,7 @@ class AdvertisementsController extends Controller
      */
     public function store(AdvertisementsRequest $request)
     {
-        AdvertisementsRepository::store($request);
+        AdvertisementsService::store($request);
         return response()->json('ok', 200);
     }
 
@@ -53,13 +54,13 @@ class AdvertisementsController extends Controller
      */
     public function update(AdvertisementsRequest $request, Advertisement $advertisement)
     {
-        AdvertisementsRepository::update($request, $advertisement);
+        AdvertisementsService::update($request, $advertisement);
         return response()->json('ok', 200);
     }
 
     public function destroy(Advertisement $advertisement){
         if(Auth::user()->id == $advertisement->user_id || Auth::user()->role == 'admin' ){
-            AdvertisementsRepository::destroy($advertisement);
+            AdvertisementsService::destroy($advertisement);
             return response()->json('ok', 200);
         }
         return response()->json('error', 403);

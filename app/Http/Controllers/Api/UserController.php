@@ -7,6 +7,7 @@ use App\Http\Requests\UsersRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Repository\UserRepository;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
 
     public function update(UsersRequest $request, User $user)
     {
-        UserRepository::update($request, $user);
+        UserService::update($request, $user);
         return response()->json('ok', 200);
     }
 }

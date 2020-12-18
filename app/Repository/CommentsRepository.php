@@ -17,7 +17,6 @@ class CommentsRepository
             'advertisement_id' => $request->input('advertisement_id'),
             'content' => $request->input('content')
         ]);
-        dispatch(new NewCommentsJob($comment));
         return $comment;
     }
 

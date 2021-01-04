@@ -2,7 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Jobs\AdvertisementWeatherJobs;
+use App\Models\Advertisement;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Cache;
 
 class AdvertisementResource extends JsonResource
 {
@@ -19,6 +22,9 @@ class AdvertisementResource extends JsonResource
             $trimDescription = rtrim($trimDescription, "!,.-") . '...';
         }
 
+        if(!Cache::has('advertisement_'. $this->id)){
+            dispatch(new AdvertisementWeatherJobs(Advertisement::where('id' ,$this->id)->first()));
+        }
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -33,8 +39,8 @@ class AdvertisementResource extends JsonResource
             'image' => $this->image,
             'created_at' => $this->created_at->format('Y-m-d'),
             'user' => new UserResource($this->user),
-            'category' => new CategoryResource($this->category)
-
+            'category' => new CategoryResource($this->category),
+            'weather' => Cache::get('advertisement_'. $this->id),
         ];
     }
 }

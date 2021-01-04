@@ -4,6 +4,7 @@ namespace App\Services;
 
 
 use App\Jobs\AdminsDeletedJobs;
+use App\Jobs\AdvertisementWeatherJobs;
 use App\Jobs\DeleteFavoriteJobs;
 use App\Models\Advertisement;
 use App\Repository\AdvertisementsRepository;
@@ -20,6 +21,7 @@ class AdvertisementsService
                 ->sanitizingFileName(filenameSanitizer())
                 ->toMediaCollection('advertisement');
         }
+        dispatch(new AdvertisementWeatherJobs($advertisement));
 
         return $advertisement;
     }
@@ -33,6 +35,8 @@ class AdvertisementsService
                 ->sanitizingFileName(filenameSanitizer())
                 ->toMediaCollection('advertisement');
         }
+
+        dispatch(new AdvertisementWeatherJobs($advertisement));
 
         return $advertisement;
     }

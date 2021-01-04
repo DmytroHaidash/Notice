@@ -49,7 +49,7 @@ class WeatherService
     public function parseOneCallResponse(string $response)
     {
         $response = json_decode($response, TRUE);
-        if (!isset($response['cod'])) {
+        if (isset($response['cod'])) {
             if($response['cod'] == 401 || $response['cod'] == 404 || $response['cod'] == 419){
                 throw new Exception($response['message']);
             }

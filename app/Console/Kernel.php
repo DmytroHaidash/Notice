@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\AdvertisementsWeatherJobs;
 use App\Jobs\WeeklyJobs;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->job(WeeklyJobs::class)->sundays()->dailyAt('15:00');
+        $schedule->job(AdvertisementsWeatherJobs::class)->crone('0 */12 * * *');
     }
 
     /**

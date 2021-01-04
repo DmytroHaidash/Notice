@@ -29,6 +29,7 @@
                     <th scope="col">Дата создания</th>
                     <th scope="col">Описание</th>
                     <th scope="col">Автор</th>
+                    <th scope="col">Погода</th>
                     <th scope="col"></th>
                 </tr>
                 </thead>
@@ -50,6 +51,9 @@
                             {{item.user.name}}
                         </router-link>
                         <p v-else>{{item.user.name}}</p>
+                    </th>
+                    <th>
+                        <img :src="item.weather.current.icon" width="50" v-if="item.weather">
                     </th>
                     <th>
                         <router-link :to="{path: `/advertisement/${item.id}`, params: item.id}">

@@ -4,7 +4,7 @@
             <img :src="advertisement.image" width="400">
             <h1 class="title" style="display: flex;">
                 {{advertisement.title}}
-                <add-to-favorite :advertisement="advertisement"></add-to-favorite>
+                <add-to-favorite :advertisement="advertisement" v-if="$attrs.auth"></add-to-favorite>
             </h1>
 
             <p>{{advertisement.category.parent ? advertisement.category.parent.title +' -> ' : ''}}
@@ -29,6 +29,30 @@
             <p>{{advertisement.country}}</p>
 
             <p>{{advertisement.email}}</p>
+            <div v-if="advertisement.weather">
+                <h4>Погода</h4>
+                <p>Сейчас: <img :src="advertisement.weather.current.icon" width="50" ></p>
+                <p>Температура - {{advertisement.weather.current.temp}}</p>
+                <p>Влажность - {{advertisement.weather.current.humidity}}</p>
+                <p>Давление - {{advertisement.weather.current.pressure}}</p>
+                <p>Состояние атмосферы - {{advertisement.weather.current.description}}</p>
+                <table>
+                    <thead class="w-50">
+                    <tr>
+                        <th scope="col">Дата</th>
+                        <th scope="col">Днем</th>
+                        <th scope="col">Ночью</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="item in advertisement.weather.daily">
+                        <th>{{item.date}}</th>
+                        <th>{{item.day}}</th>
+                        <th>{{item.night}}</th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <google-map v-if="advertisement.latitude && advertisement.longitude"></google-map>
 

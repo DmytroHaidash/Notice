@@ -26,7 +26,7 @@
                 <a href="/profile/{{Auth::user()->id}}">{{ Auth::user()->name }}</a>
                 <favorite-button></favorite-button>
                 @if(auth()->user()->role == 'admin')
-                    <a href="/admin">Админ панель</a>
+                    <a href="/nova">Админ панель</a>
                 @endif
 
                 <a href="{{ route('logout') }}"

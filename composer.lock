@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b2508e2825fa1e1e6d2c0a340f7534ec",
+    "content-hash": "3becbcd556d6ad18b5d631cf9f057cd9",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -216,6 +216,52 @@
                 "time"
             ],
             "time": "2020-08-22T02:42:12+00:00"
+        },
+        {
+            "name": "devops/nova-map-address",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/smandev/nova-map-address.git",
+                "reference": "b36812b0b75321ddc31dabb32662ea2423457c9b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/smandev/nova-map-address/zipball/b36812b0b75321ddc31dabb32662ea2423457c9b",
+                "reference": "b36812b0b75321ddc31dabb32662ea2423457c9b",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^5.7|^6.0|^7.0|^8.0",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "devops\\MapAddress\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "devops\\MapAddress\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field to place a marker on map to get coordinates then it reverse geocoding the coordinates to get a street address",
+            "keywords": [
+                "address",
+                "geo",
+                "geocoding",
+                "laravel",
+                "map",
+                "nova"
+            ],
+            "time": "2021-01-05T20:58:17+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -8665,11 +8711,54 @@
                 }
             ],
             "time": "2020-07-12T23:59:07+00:00"
+        },
+        {
+            "name": "whitecube/nova-google-maps",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/whitecube/nova-google-maps.git",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/whitecube/nova-google-maps/zipball/1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "reference": "1761cb462b528d0c94bc15c9ef5747ce8ae2d114",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Whitecube\\NovaGoogleMaps\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whitecube\\NovaGoogleMaps\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "time": "2020-05-04T14:32:00+00:00"
         }
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "devops/nova-map-address": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

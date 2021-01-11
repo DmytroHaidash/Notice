@@ -1,12 +1,18 @@
 <?php
 
-namespace App\Nova;
+namespace App\Nova\Resources;
 
+use App\Nova\Resource;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
+use Ebess\AdvancedNovaMediaLibrary\Fields\Files;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
+use Whitecube\NovaGoogleMaps\GoogleMaps;
+
 
 class User extends Resource
 {
@@ -30,7 +36,7 @@ class User extends Resource
      * @var array
      */
     public static $search = [
-        'id', 'name', 'email',
+        'id', 'first_name', 'last_name', 'email',
     ];
 
     /**
@@ -44,11 +50,14 @@ class User extends Resource
         return [
             ID::make()->sortable(),
 
-            Gravatar::make()->maxWidth(50),
 
-            Text::make('Name')
+            Text::make('First Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            Text::make('Last Name')
+                ->sortable()
+                ->rules( 'max:255'),
 
             Text::make('Email')
                 ->sortable()
@@ -60,6 +69,20 @@ class User extends Resource
                 ->onlyOnForms()
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
+
+            Textarea::make('About')->rows(3),
+
+            Select::make('Role')
+                ->options(['admin' => 'Admin', 'customer' => 'Customer' ])
+                ->displayUsingLabels()
+                ->hideFromIndex(),
+
+            Files::make('Avatar', 'avatar'),
+
+            GoogleMaps::make('Map')
+                ->zoom(8)
+                ->hideFromIndex()
+
         ];
     }
 

@@ -98,4 +98,9 @@ class Category extends Resource
     {
         return [];
     }
+
+    public static function relatableQuery(NovaRequest $request, $query)
+    {
+        return $query->whereNull('parent_id');
+    }
 }

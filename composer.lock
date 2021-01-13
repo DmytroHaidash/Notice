@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b6a204cc5a662c7c60b8244298767bc",
+    "content-hash": "b2fb4fadab3f05f271708264714c067d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -57,6 +57,57 @@
                 "stack"
             ],
             "time": "2020-10-29T16:03:21+00:00"
+        },
+        {
+            "name": "bissolli/nova-phone-field",
+            "version": "v0.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bissolli/nova-phone-field.git",
+                "reference": "29e0e26c17366aa7e4e290c311419735e4b05b94"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bissolli/nova-phone-field/zipball/29e0e26c17366aa7e4e290c311419735e4b05b94",
+                "reference": "29e0e26c17366aa7e4e290c311419735e4b05b94",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Bissolli\\NovaPhoneField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bissolli\\NovaPhoneField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gustavo Bissolli",
+                    "email": "gustavo.bissolli@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Nova Phone Number field with a dynamic mask based on the country code inserted by the user.",
+            "homepage": "https://github.com/bissolli/nova-phone-field",
+            "keywords": [
+                "input mask",
+                "laravel",
+                "nova",
+                "phone mask"
+            ],
+            "time": "2019-09-08T06:05:47+00:00"
         },
         {
             "name": "brick/math",
@@ -1353,6 +1404,59 @@
                 "watermark"
             ],
             "time": "2019-11-02T09:15:47+00:00"
+        },
+        {
+            "name": "jagdeepbanga/nova-date-time",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jagdeepbanga/NovaDateTime.git",
+                "reference": "c6a5a8c266b51d678b1cfb7ea51d53c3af0f5af2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jagdeepbanga/NovaDateTime/zipball/c6a5a8c266b51d678b1cfb7ea51d53c3af0f5af2",
+                "reference": "c6a5a8c266b51d678b1cfb7ea51d53c3af0f5af2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Jagdeepbanga\\NovaDateTime\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jagdeepbanga\\NovaDateTime\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jagdeep Singh Banga",
+                    "email": "banga.jagdeep@gmail.com"
+                }
+            ],
+            "description": "A Laravel Nova DateTime field picker.",
+            "keywords": [
+                "DateTimePicker",
+                "datetime",
+                "field",
+                "laravel",
+                "laravel-nova",
+                "nova",
+                "picker",
+                "set default time"
+            ],
+            "time": "2020-09-28T09:35:06+00:00"
         },
         {
             "name": "laravel/framework",

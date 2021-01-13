@@ -16,10 +16,12 @@
     "require": {
         "php": "^7.3|^8.0",
         "ext-json": "*",
+        "bissolli/nova-phone-field": "^0.0.4",
         "ebess/advanced-nova-media-library": "^3.4",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "jagdeepbanga/nova-date-time": "^1.0",
         "laravel/framework": "^8.12",
         "laravel/nova": "3.*",
         "laravel/tinker": "^2.5",

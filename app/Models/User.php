@@ -80,4 +80,18 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->first_name . ' ' . $this->last_name;
     }
+
+    public function getMapAttribute()
+    {
+        $map['latlng']['lat'] = $this->latitude;
+        $map['latlng']['lng'] = $this->longitude;
+        return json_encode($map);
+    }
+
+    public function setMapAttribute($value)
+    {
+        $value = json_decode($value);
+        $this->attributes['latitude'] = $value->latlng->lat;
+        $this->attributes['longitude'] = $value->latlng->lng;
+    }
 }

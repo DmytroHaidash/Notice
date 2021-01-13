@@ -28,4 +28,4 @@ Route::get('/unsubscribe/{user}', 'SubscribesController@destroy')->name('unsubsc
 /** Front SPA routes */
 Route::get('/{any}', function () {
     return view('app');
-})->where('any', '.*');
+})->where('any', '.*')->where('any', '^(?!nova).*$');
